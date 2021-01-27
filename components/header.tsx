@@ -1,14 +1,11 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
-const Header = () => {
-  return (
-    <h2 className="text-2xl md:text-4xl font-bold tracking-tight md:tracking-tighter leading-tight mb-20 mt-8">
-      <Link href="/">
-        <a className="hover:underline">Blog</a>
-      </Link>
-      .
-    </h2>
-  )
-}
+const Header = () => (
+  <h1 className="text-4xl md:text-5xl font-bold tracking-tighter leading-tight md:pr-8">
+    <Link href="/">
+      <a className="hover:underline">Next Blog</a>
+    </Link>
+  </h1>
+);
 
-export default Header
+export default Header;

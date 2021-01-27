@@ -1,17 +1,19 @@
-import Avatar from './avatar'
-import DateFormatter from './date-formatter'
-import CoverImage from './cover-image'
-import Link from 'next/link'
-import Author from '../types/author'
+import Link from 'next/link';
+import Avatar from './avatar';
+import DateFormatter from './date-formatter';
+import CoverImage from './cover-image';
+import Author from '../types/author';
+import PostViews from './post-views';
+import useFetch from '../lib/fetcher';
 
 type Props = {
-  title: string
-  coverImage: string
-  date: string
-  excerpt: string
-  author: Author
-  slug: string
-}
+  title: string;
+  coverImage: string;
+  date: string;
+  excerpt: string;
+  author: Author;
+  slug: string;
+};
 
 const PostPreview = ({
   title,
@@ -21,6 +23,10 @@ const PostPreview = ({
   author,
   slug,
 }: Props) => {
+  const { data } = useFetch(`/api/page-views-preview?id=${slug}`, true);
+
+  const views = data?.total;
+
   return (
     <div>
       <div className="mb-5">
@@ -33,11 +39,15 @@ const PostPreview = ({
       </h3>
       <div className="text-lg mb-4">
         <DateFormatter dateString={date} />
+        {' '}
+        -
+        {' '}
+        <PostViews>{`${views >= 0 ? views : '...'} views`}</PostViews>
       </div>
       <p className="text-lg leading-relaxed mb-4">{excerpt}</p>
       <Avatar name={author.name} picture={author.picture} />
     </div>
-  )
-}
+  );
+};
 
-export default PostPreview
+export default PostPreview;
